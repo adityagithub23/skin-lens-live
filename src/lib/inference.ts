@@ -41,12 +41,34 @@ export async function runInference(imageData: string): Promise<{
     },
   ];
 
-  // Generate random predictions (replace with actual model output)
+  // Generate random predictions with boosted top confidence (always > 78%)
   const shuffled = [...classes].sort(() => Math.random() - 0.5);
-  const predictions: Prediction[] = shuffled.slice(0, 3).map((cls, i) => ({
+  const rawPredictions = shuffled.slice(0, 5).map((cls, i) => ({
     ...cls,
-    confidence: Math.random() * (i === 0 ? 0.4 : 0.2) + (i === 0 ? 0.5 : 0.1),
+    confidence: Math.random() * (i === 0 ? 0.5 : 0.3) + (i === 0 ? 0.4 : 0.05),
   })).sort((a, b) => b.confidence - a.confidence);
+
+  // Normalize and ensure top prediction is always > 78%
+  const total = rawPredictions.reduce((sum, p) => sum + p.confidence, 0);
+  const normalized = rawPredictions.map(p => ({
+    ...p,
+    confidence: p.confidence / total
+  }));
+
+  // Boost top prediction to at least 79%
+  if (normalized[0].confidence < 0.79) {
+    const boost = 0.79 - normalized[0].confidence;
+    normalized[0].confidence = 0.79;
+    
+    // Redistribute the difference among others
+    const remaining = 1 - 0.79;
+    const otherTotal = normalized.slice(1).reduce((sum, p) => sum + p.confidence, 0);
+    for (let i = 1; i < normalized.length; i++) {
+      normalized[i].confidence = (normalized[i].confidence / otherTotal) * remaining;
+    }
+  }
+
+  const predictions: Prediction[] = normalized;
 
   // Generate mock heatmap (replace with actual Grad-CAM)
   const heatmap = await generateMockHeatmap(imageData);

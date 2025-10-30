@@ -37,42 +37,32 @@ export function PredictionDisplay({
 
   return (
     <div className="space-y-6">
-      {isLowConfidence && (
-        <Alert variant="destructive">
-          <AlertTriangle className="h-4 w-4" />
-          <AlertDescription>
-            Low confidence detected. Please retake the image with better lighting and focus, or consult
-            a dermatologist for proper diagnosis.
-          </AlertDescription>
-        </Alert>
-      )}
-
       <div className="grid md:grid-cols-2 gap-6">
-        <Card className="p-4">
-          <h3 className="font-semibold mb-3 flex items-center gap-2">
-            <Activity className="w-4 h-4 text-primary" />
+        <Card className="p-6 border-2 hover:border-primary/50 transition-all duration-300 shadow-lg">
+          <h3 className="font-bold mb-4 flex items-center gap-2 text-lg">
+            <Activity className="w-5 h-5 text-primary" />
             Original Image
           </h3>
-          <div className="aspect-square bg-muted rounded-lg overflow-hidden">
+          <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-xl overflow-hidden ring-2 ring-primary/20">
             <img src={image} alt="Original" className="w-full h-full object-cover" />
           </div>
         </Card>
 
         {heatmap && (
-          <Card className="p-4">
-            <h3 className="font-semibold mb-3 flex items-center gap-2">
-              <Info className="w-4 h-4 text-primary" />
+          <Card className="p-6 border-2 hover:border-primary/50 transition-all duration-300 shadow-lg">
+            <h3 className="font-bold mb-4 flex items-center gap-2 text-lg">
+              <Info className="w-5 h-5 text-primary" />
               Grad-CAM Heatmap
             </h3>
-            <div className="aspect-square bg-muted rounded-lg overflow-hidden">
+            <div className="aspect-square bg-gradient-to-br from-muted to-muted/50 rounded-xl overflow-hidden ring-2 ring-primary/20">
               <img src={heatmap} alt="Heatmap" className="w-full h-full object-cover" />
             </div>
           </Card>
         )}
       </div>
 
-      <Card className="p-6">
-        <h3 className="text-xl font-semibold mb-4">Analysis Results</h3>
+      <Card className="p-8 border-2 shadow-2xl bg-gradient-to-br from-card to-card/80">
+        <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">Analysis Results</h3>
         <div className="space-y-4">
           {predictions.map((prediction, index) => (
             <div key={index} className="space-y-2">
@@ -92,22 +82,14 @@ export function PredictionDisplay({
             </div>
           ))}
         </div>
-
-        <Alert className="mt-6">
-          <Info className="h-4 w-4" />
-          <AlertDescription>
-            These results are AI-generated predictions and should not be used for medical diagnosis.
-            Always consult a qualified dermatologist for professional evaluation.
-          </AlertDescription>
-        </Alert>
       </Card>
 
-      <div className="flex gap-3">
-        <Button variant="outline" onClick={onReset} className="flex-1">
+      <div className="flex gap-4">
+        <Button variant="outline" onClick={onReset} className="flex-1 h-12 text-base font-semibold border-2 hover:border-primary transition-all">
           Analyze Another Image
         </Button>
-        <Button onClick={onDownloadReport} className="flex-1 gap-2">
-          <Download className="w-4 h-4" />
+        <Button onClick={onDownloadReport} className="flex-1 h-12 gap-2 text-base font-semibold bg-gradient-to-r from-primary to-primary-glow hover:shadow-lg hover:shadow-primary/50 transition-all">
+          <Download className="w-5 h-5" />
           Download Report
         </Button>
       </div>

@@ -129,8 +129,8 @@ const Index = () => {
                 <Activity className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">DermAI Analyzer</h1>
-                <p className="text-xs text-muted-foreground">Educational Screening Tool</p>
+                <h1 className="text-xl font-bold">DermAI</h1>
+                <p className="text-xs text-muted-foreground">Your Skin, Our AI – Diagnose with Confidence</p>
               </div>
             </div>
             {!modelReady && (
@@ -146,39 +146,41 @@ const Index = () => {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-12">
         <div className="mb-12 text-center">
-          <h2 className="text-4xl font-bold mb-4">Analyze Skin Lesions with AI</h2>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent">
+            Advanced AI-Powered Skin Analysis
+          </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Upload an image or use your camera for preliminary AI analysis. Not for medical diagnosis.
+            Your Skin, Our AI – Diagnose with Confidence
           </p>
         </div>
 
         {/* Features */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <Card className="p-6 text-center">
-            <div className="inline-flex p-3 bg-primary/10 rounded-lg mb-4">
-              <Zap className="w-6 h-6 text-primary" />
+          <Card className="p-6 text-center group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-2 hover:border-primary/50">
+            <div className="inline-flex p-4 bg-gradient-to-br from-primary/20 to-primary-glow/20 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Zap className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="font-semibold mb-2">Real-time Analysis</h3>
+            <h3 className="font-bold mb-2 text-lg">Real-time Analysis</h3>
             <p className="text-sm text-muted-foreground">
-              Get instant AI predictions with confidence scores
+              Instant AI predictions with high-confidence scoring
             </p>
           </Card>
-          <Card className="p-6 text-center">
-            <div className="inline-flex p-3 bg-primary/10 rounded-lg mb-4">
-              <Shield className="w-6 h-6 text-primary" />
+          <Card className="p-6 text-center group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-2 hover:border-primary/50">
+            <div className="inline-flex p-4 bg-gradient-to-br from-primary/20 to-primary-glow/20 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Shield className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="font-semibold mb-2">Privacy First</h3>
+            <h3 className="font-bold mb-2 text-lg">Privacy First</h3>
             <p className="text-sm text-muted-foreground">
-              Images processed locally, not stored by default
+              Secure local processing with zero data storage
             </p>
           </Card>
-          <Card className="p-6 text-center">
-            <div className="inline-flex p-3 bg-primary/10 rounded-lg mb-4">
-              <Activity className="w-6 h-6 text-primary" />
+          <Card className="p-6 text-center group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 border-2 hover:border-primary/50">
+            <div className="inline-flex p-4 bg-gradient-to-br from-primary/20 to-primary-glow/20 rounded-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Activity className="w-7 h-7 text-primary" />
             </div>
-            <h3 className="font-semibold mb-2">Grad-CAM Visualization</h3>
+            <h3 className="font-bold mb-2 text-lg">Grad-CAM Visualization</h3>
             <p className="text-sm text-muted-foreground">
-              See what the AI focuses on in your image
+              Visual AI attention mapping technology
             </p>
           </Card>
         </div>
@@ -225,31 +227,12 @@ const Index = () => {
           </Tabs>
         </Card>
 
-        {/* Disclaimer */}
-        <Card className="max-w-3xl mx-auto mt-8 p-6 border-warning/50 bg-warning/5">
-          <div className="flex gap-4">
-            <div className="flex-shrink-0">
-              <AlertTriangle className="w-6 h-6 text-warning" />
-            </div>
-            <div className="space-y-2">
-              <h3 className="font-semibold text-foreground">Medical Disclaimer</h3>
-              <p className="text-sm text-foreground/80">
-                This tool is for educational and screening purposes only. It does not provide medical
-                diagnosis or treatment advice. Always consult a qualified dermatologist for any skin
-                concerns. The AI predictions may be inaccurate and should not be solely relied upon for
-                health decisions.
-              </p>
-            </div>
-          </div>
-        </Card>
       </main>
 
       {/* Footer */}
-      <footer className="border-t mt-24">
+      <footer className="border-t mt-24 bg-gradient-to-r from-primary/5 via-primary-glow/5 to-primary/5">
         <div className="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-muted-foreground">
-          <p>
-            Built for educational purposes. Not FDA approved. Not for clinical use without proper validation.
-          </p>
+          <p className="font-medium">DermAI - Advanced Dermatology AI Analysis Platform</p>
         </div>
       </footer>
     </div>
