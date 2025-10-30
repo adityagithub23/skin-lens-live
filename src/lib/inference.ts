@@ -41,34 +41,27 @@ export async function runInference(imageData: string): Promise<{
     },
   ];
 
-  // Generate random predictions with boosted top confidence (always > 78%)
+  // Generate random predictions with top confidence between 78% and 99%
   const shuffled = [...classes].sort(() => Math.random() - 0.5);
-  const rawPredictions = shuffled.slice(0, 5).map((cls, i) => ({
-    ...cls,
-    confidence: Math.random() * (i === 0 ? 0.5 : 0.3) + (i === 0 ? 0.4 : 0.05),
-  })).sort((a, b) => b.confidence - a.confidence);
-
-  // Normalize and ensure top prediction is always > 78%
-  const total = rawPredictions.reduce((sum, p) => sum + p.confidence, 0);
-  const normalized = rawPredictions.map(p => ({
-    ...p,
-    confidence: p.confidence / total
-  }));
-
-  // Boost top prediction to at least 79%
-  if (normalized[0].confidence < 0.79) {
-    const boost = 0.79 - normalized[0].confidence;
-    normalized[0].confidence = 0.79;
-    
-    // Redistribute the difference among others
-    const remaining = 1 - 0.79;
-    const otherTotal = normalized.slice(1).reduce((sum, p) => sum + p.confidence, 0);
-    for (let i = 1; i < normalized.length; i++) {
-      normalized[i].confidence = (normalized[i].confidence / otherTotal) * remaining;
-    }
-  }
-
-  const predictions: Prediction[] = normalized;
+  
+  // Generate top confidence randomly between 0.78 and 0.99
+  const topConfidence = 0.78 + Math.random() * 0.21; // 78% to 99%
+  
+  // Generate remaining confidences that sum to (1 - topConfidence)
+  const remaining = 1 - topConfidence;
+  const numOthers = 4;
+  
+  // Generate random weights for other predictions
+  const weights = Array.from({ length: numOthers }, () => Math.random());
+  const weightSum = weights.reduce((a, b) => a + b, 0);
+  
+  // Normalize weights to sum to remaining confidence
+  const otherConfidences = weights.map(w => (w / weightSum) * remaining);
+  
+  const predictions: Prediction[] = [
+    { ...shuffled[0], confidence: topConfidence },
+    ...otherConfidences.map((conf, i) => ({ ...shuffled[i + 1], confidence: conf }))
+  ].sort((a, b) => b.confidence - a.confidence);
 
   // Generate mock heatmap (replace with actual Grad-CAM)
   const heatmap = await generateMockHeatmap(imageData);
